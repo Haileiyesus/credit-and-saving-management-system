@@ -1,0 +1,134 @@
+{% extends 'base_admin.html' %}
+{% block page_title %}
+Complain Reply
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+  <div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Customer Complain</h3>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer ID</th>
+                            <th>Customer  Name</th>
+                            <th>Message</th>
+                            <th>Sended On</th>
+                            <th>Reply</th>
+                        </tr>
+                        </thead>
+
+                        {% for complain in complain %}
+                        <tbody>
+                        <tr>
+                            <td>{{ complain.id }}</td>
+                            <td>{{ customer_id }}</td>                    
+                            <td>{{ complain.first_name }} {{ complain.last_name }}</td>
+                            <td>{{ complain.complain }}</td>
+                            <td>{{ complain.created_at }}</td>
+                            <td>
+                                {% if complain.complain_reply == "" %}
+                                <button id="reply_button" class="btn btn-primary btn-block">Reply</button>
+
+                                {% else %}
+                                    {{complain.complain_reply}}
+                                {% endif %}
+                                
+                            </td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            
+            </div>
+            <!-- /.card -->
+
+        </div>
+    </div>
+
+</div><!-- /.container-fluid -->
+</section>
+
+{% comment %} Modal to Reply Feedback {% endcomment %}
+<!-- Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reply complain</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Reply to: <b><span id="reply_name"></span></b></p>
+        <input type="hidden" id="id" name="reply_id" />
+        <textarea class="form-control" rows="5" id="reply_message"></textarea>
+    </div>
+    <div class="modal-footer">
+        {% comment %} <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> {% endcomment %}
+        <button class="btn btn-success reply_open_button" data-toggle="modal" data-target="#replyModal">Reply</button>
+
+
+    </div>
+    <a href="{% url 'admin_home'  %}">Back</a>
+    </div>
+</div>
+</div>
+</section>
+  <script>
+    $(document).ready(function() {
+      $(".reply_open_button").click(function() {
+        var id = $(this).parents("tr").children("td:eq(0)").text();
+        var name = $(this).parents("tr").children("td:eq(2)").text();
+        $("#reply_id").val(id);
+        $("#reply_name").text(name);
+      });
+  
+      $(document).on("click", "#reply_button", function() {
+        $(this).attr("disabled", "disabled").text("Sending Reply...");
+  
+        var id = $("#reply_id").val();
+        var reply = $("#reply_message").val();
+  
+        // Retrieve the URL from a data attribute
+        var url = $(this).data("reply-url");
+  
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: { id: id, reply: reply },
+        })
+          .done(function(response) {
+            if (response === "True") {
+              alert("Reply Sent!");
+            } else {
+              alert("Failed to Send Reply!");
+            }
+            location.reload();
+          })
+          .fail(function() {
+            alert("Error in Sending Complain Reply.");
+          });
+      });
+    });
+  </script>
+  
+{% endblock main_content %}
+
+  {% comment %} Custom JS to Identify the Reply and Post Reply {% endcomment %}
+

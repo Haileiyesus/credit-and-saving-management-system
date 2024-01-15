@@ -1,0 +1,53 @@
+{% extends 'base_customer.html' %}
+{% block page_title %}
+Deposit
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+<form method="POST">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="card-body">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+<div id="account-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>Current Balance(willing):{{customer_profile.willing_total}}</h2>
+                </div>
+            </div>
+            
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="submit-area">
+                    <h4>Deposit Money</h4>
+                    <input type="number" placeholder="Enter deposit amount" id="apple" name="apple"><br>
+                    <button id="deposit-btn" class="btn btn-success">Deposit</button>
+                </div>
+            {% comment %} </div>
+            <a href="{% url 'cust_home' customer_id=customer_id %}">Back</a> {% endcomment %}
+
+
+           
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock main_content %}
+

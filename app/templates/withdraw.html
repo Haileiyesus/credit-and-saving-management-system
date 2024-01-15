@@ -1,0 +1,77 @@
+{% extends 'base_customer.html'%}
+{% comment %} 
+{%block css%}
+<style>
+body {
+	margin: 0;
+	padding-top: 100px;
+  background-color: #363958;
+}
+
+.submit-area {
+	padding: 30px;
+	margin-top: 50px;
+	border-radius: 10px;
+	box-shadow: 5px 5px gray;
+  color: white;
+  background-color: royalblue;
+}
+
+#account-area {
+	margin-top: 5%;
+}
+
+
+.withdraw {
+	background-color: lightsalmon;
+}
+
+
+.status {
+	margin: 0 20px;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+</style>
+
+{%endblock css%} {% endcomment %}
+
+{%block main_content%}
+{% load static %}
+<section class="content-header">
+<form method="POST">
+    {% csrf_token %}
+    {% if messages %}
+<div class="card-body">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+            
+            <div class="col-lg-4 mb-3">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>Current Balance(willing):{{customer_profile.willing_total}}</h2>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-6">
+                <div class="submit-area">
+                    <h4>Withdraw Amount</h4>
+                    <input type="number"  placeholder="Enter withdraw amount" id="apple" name="apple"><br>
+                    <button id="withdraw-btn" class="btn btn-success">Withdraw</button>
+                   
+                </div>
+                
+    </div>
+</div>
+</section>
+{%endblock main_content%}

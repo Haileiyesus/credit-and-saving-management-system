@@ -1,0 +1,63 @@
+
+{% extends 'base_finance.html' %}
+
+{% block main_content %}
+{% load static %}
+{% if messages %}
+<section class="content-header">
+<div class="card-body">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+  <table border='1'>
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Department</th>
+      <th>Salary</th>
+      <th>Salary_10</th>
+      <th>Willing</th>
+      <th>Total %</th>
+
+
+
+      
+    </tr>
+    {% for x in customer_list %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.user.first_name }}</td>
+        <td>{{ x.user.last_name }}</td>
+        <td>{{ x.department }}</td>
+        <td>{{ x.salary }}</td>
+        <td>{{ x.salary_10 }}</td>
+        {% for t in tot %}
+        {% if x.user == t.0 %}
+        <td>{{ t.2 }}</td>
+        <td>{{ t.1 }}</td>
+        {% endif %}
+       
+        {% endfor %}
+        {% endfor %}
+       
+         
+
+      </tr>
+        
+  </table>
+  {% if actiavter == True %}
+  <a href="{% url 'transfer_money_save' %}"><button>Transfer</button></a> 
+  {% endif %}
+  
+  <p>Total salary_10 money: {{ total_salary_10 }}</p>
+</section>
+{% endblock main_content %} 

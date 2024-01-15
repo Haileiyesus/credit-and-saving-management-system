@@ -1,0 +1,17 @@
+{% extends 'base_staff.html' %}
+
+{% block page_title %}
+   Report
+{% endblock page_title %}
+
+{% block main_content %}
+{% load static %}
+<section class="content-header">
+<div class="form-group">
+    <label for="picture">Upload </label>
+    <input type="file" class="form-control-file" id="picture" name="picture">
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+<a href="{% url 'staff_home' %}">Back</a>
+</section>
+{% endblock main_content %}

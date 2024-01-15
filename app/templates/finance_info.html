@@ -1,0 +1,35 @@
+{% extends 'base_staff.html' %}
+{% block page_title %}
+Finance Information
+{% endblock page_title %}
+{% block main_content %}
+{% load static %}
+    <h1>Finance Info</h1>
+    
+    <table border='1'>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Balance</th>
+                <th>Count</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in result %}
+            <tr>
+                <td>{{ res.0 }}</td>
+                <td>{{ res.1 }}</td>
+                <td>{{ res.2 }}</td>
+                <td>{{ res.3 }}</td>
+                <td>{{ res.4 }}</td>
+                <td><a href="{% url 'view_bal' res.1 %}"><button>View</button></a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+      
+    <p>Total 10% of Salary: {{ total }}</p> 
+{% endblock main_content %}

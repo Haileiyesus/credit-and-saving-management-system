@@ -1,0 +1,94 @@
+{% extends 'base_staff.html' %} 
+{% block page_title %}
+ Information 
+{% endblock page_title %} 
+{% block main_content %}
+ {% load static %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Loan Request</h3>
+          </div>
+          <!-- /.card-header -->
+
+          {% comment %} Display Messages {% endcomment %} {% if messages %}
+          <div class="card-body">
+            {% for message in messages %}
+            <div
+              class="alert alert-{{ message.tags }} alert-dismissible fade show"
+              role="alert"
+              style="margin-top: 10px"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Loan Request History</h3>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Loan Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for loan in loads %} {% if loan.leave_status > 2 %}
+                  <tr>
+                    <td>{{ loan.id }}</td>
+                    <td>{{ loan.customer_id.user.id }}</td>
+                    <td>
+                      {{ loan.customer_id.user.first_name }} {{ oan.customer_id.user.last_name }}
+                    </td>
+                    <td>{{ loan.loan_amount }}</td>
+                    <td>
+                      {% if loan.leave_status == 4 %}
+                      <span class="alert alert-success">Approved</span>
+                      {% elif loan.leave_status == 5 %}
+                      <span class="alert alert-danger">Rejected</span>
+                      {% else %}
+                      <span class="alert alert-warning">Pending</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endif %} {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+{% endblock main_content %}

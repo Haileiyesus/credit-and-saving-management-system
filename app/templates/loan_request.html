@@ -1,0 +1,117 @@
+{% extends 'base_customer.html' %}
+
+{% block page_title %}
+    Loan Request
+{% endblock page_title %}
+
+{% block main_content %}
+{% load static %}
+
+<section class="content-header">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Loan Request</h3>
+                    </div>
+                    <!-- /.card-header -->
+
+                    {% comment %} Display Messages {% endcomment %}
+                    {% if messages %}
+                    <div class="card-body">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                   
+                     {% if result or loan_request.loan_amount == 0 %}
+                    <form method="POST" action="{% url 'loan_request_save' %}">
+                        {% csrf_token %}
+                        
+                        <!-- /.card-body -->
+                        <input type="hidden" name="id" value="{{customer_profile.customer_id}}">
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Send Request</button>
+                        </div>
+                    </form>
+                    {% endif %}
+                   
+                   
+                    
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Loan Request History</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Rejection Reason</th>
+                                        <th>Actions</th>  <!-- Add this column -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for loan in loan_request %}
+                                    {% if loan.customer_id == customer_profile %}
+                                    <tr>
+                                        <td>{{ loan.id }}</td>
+                                        <td>{{ loan.date }}</td>
+                                        <td>
+                                            {% if loan.leave_status == 1 or loan.leave_status == 3 or loan.leave_status == 4 %}
+                                                <span class="alert alert-success">Approved</span>
+                                            {% elif loan.leave_status == 2 %}
+                                                <span class="alert alert-danger">Rejected</span>
+                                            {% else %}
+                                                <span class="alert alert-warning">Pending</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if loan.reject_reason %}
+                                                {{ loan.reject_reason }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if loan.leave_status == 1 %}
+                                                <a href="{% url 'continue_loan' customer_profile.customer_id  %}" ><button type="submit" class="btn btn-primary">Continue</button></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</section>
+{% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

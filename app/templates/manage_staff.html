@@ -1,0 +1,100 @@
+{% extends 'base_admin.html' %}
+{% block page_title %}
+Manage Staff
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="card-footer">
+            <button class="btn btn-secondary"><a href="/admin_home">Back</a></button>
+        </div>
+
+        {% if messages %}
+            <div class="form-group">
+                <div class="col-12">
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% elif message.tags == "success" %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Staff Details</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Sex</th>
+                                    <th>Age</th>
+                                    <th>Phone Number</th>
+                                    <th>Address</th>
+                                    <th>Last Login</th>
+                                    <th>Date Joined</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for staff in staffs %}
+                                    <tr>
+                                        <td>{{ staff.id }}</td>
+                                        <td>{{ staff.first_name }}</td>
+                                        <td>{{ staff.last_name }}</td>
+                                        <td>{{ staff.username }}</td>
+                                        <td>{{ staff.email }}</td>
+                                        {% for profile in staf %}
+                                            {% if profile.user == staff %}
+                                                <td>{{ profile.sex }}</td>
+                                                <td>{{ profile.age }}</td>
+                                                <td>{{ profile.phone_no }}</td>
+                                                <td>{{ profile.address }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <td>{{ staff.last_login }}</td>
+                                        <td>{{ staff.date_joined }}</td>
+                                        <td>
+                                            <a href="{% url 'edit_staff' staff.id %}" class="btn btn-success">Edit</a>
+                                            <a href="{% url 'delete_staff' staff.id %}" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+{% endblock main_content %}

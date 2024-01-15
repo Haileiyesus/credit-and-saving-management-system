@@ -1,0 +1,21 @@
+<!-- admin_complain.html -->
+{% extends 'base.html' %}
+{% block page_title %}
+Complain
+{% endblock page_title %}
+{% block main_content %}
+{% for complain in complains %}
+  <div>
+    <h3>Complaint ID: {{ complain.id }}</h3>
+    <p>Customer Name: {{ complain.customer_id.user.username }}</p>
+    <p>Complaint: {{ complain.complain }}</p>
+    <p>Reply: {{ complain.complain_reply }}</p>
+    <form class="reply-form" action="{% url 'cust_complain_message' complain.id %}" method="POST">
+      {% csrf_token %}
+      <textarea name="reply" rows="4" cols="50"></textarea>
+      <button type="submit">Reply</button>
+    </form>
+    <hr>
+  </div>
+{% endfor %}
+{% endblock main_content %}

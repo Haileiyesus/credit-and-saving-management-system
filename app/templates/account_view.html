@@ -1,0 +1,23 @@
+{% extends 'base_tamplate.html' %}
+
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+<h2>Account</h2>
+<form method="POST" action="{% url 'account_view' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="account_number">Account number:</label>
+        <input type="text" class="form-control" id="account_number" name="account" placeholder="Please enter your account number">
+    </div>
+    <div class="form-group">
+        <label for="pass">Password:</label>
+        <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter your password">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </div>
+</form>
+</section>
+{% endblock main_content %}

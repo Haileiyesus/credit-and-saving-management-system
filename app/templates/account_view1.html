@@ -1,0 +1,13 @@
+{% extends 'base_tamplate.html' %}
+
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+    <h1>Welcome:{{ customer.user.username }}</h1>
+    <h1>Your account balance is:{{customer.account_balance}}</h1>
+    
+    <button class="btn btn-secondary"><a href="{% url 'front' %}">Logout</a></button>
+    <!-- Display other account information here -->
+</section>
+{% endblock main_content %}

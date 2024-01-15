@@ -1,0 +1,60 @@
+{% extends 'base_customer.html' %}
+{% block page_title %}
+Continue Loan
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-body">
+                        <p>Hello, {{ customer_name }}! You are eligible for continuation. Please review the terms and conditions and enter the loan amount:</p>
+                        <form method="post" action="{% url 'continue_loan' customer_profile.customer_id %}">
+                            {% csrf_token %}
+                            <div>
+                                <p>Your current balance: {{ customer_willing_total }}</p>   
+                                </div>
+                            <div class="form-group">
+                                <label for="loan_amount">Loan Amount</label>
+                                <input type="number" class="form-control" id="loan_amount" name="loan_amount" required>
+                            </div>
+                            <div class="card-footer">
+                                <div id="message-container">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert {{ message.tags }} m-2" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            <div class="form-group">
+                                <input type="hidden" name="id" value="{{loan_req.id}}">"
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                  
+               
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+{%block js%}
+
+
+<script>
+    // Auto-hide messages after 5 seconds
+    setTimeout(function() {
+        var messageContainer = document.getElementById("message-container");
+        if (messageContainer) {
+            messageContainer.innerHTML = "";
+        }
+    }, 5000);
+</script>
+{%endblock js%}
+

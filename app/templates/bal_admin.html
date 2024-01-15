@@ -1,0 +1,34 @@
+{% extends 'base_admin.html' %}
+{% block page_title %}
+Balance
+{% endblock page_title %}
+{%block main_content%}
+{%load static%}
+<section class="content-header">
+    <div class="row">
+    <div class="card col-2">
+        
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Balance :</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {% for ban in ban%}
+            <td>{{ ban.balance1 }}</td>
+            {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+        <!-- /.card-body -->
+      </div>
+</section>
+
+
+{%endblock main_content%}

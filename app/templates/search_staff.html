@@ -1,0 +1,63 @@
+{% extends 'base_admin.html' %}
+{% block page_title %}
+Search Staff
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+
+<section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Last Login</th>
+                                <th>Date Joined</th>
+                                <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                <td>{{ staff_id.admin.id }}</td>
+                                <td>{{ staff_id.admin.first_name }}</td>
+                                <td>{{ staff_id.admin.last_name }}</td>
+                                <td>{{ staff_id.admin.username }}</td>
+                                <td>{{ staff_id.admin.email }}</td>
+                                {% comment %} <td>{{ staff_id.address }}</td> {% endcomment %}
+                                <td>{{ staff_id.admin.last_login }}</td>
+                                <td>{{ staff_id.admin.date_joined }}</td>
+                                <td>
+                                    <a href="{% url 'edit_staff' staff_id.admin.id %}" class="btn btn-success">Edit</a> 
+                                    <a href="{% url 'delete_staff' staff_id.admin.id %}" class="btn btn-danger">Delete</a>
+                                </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}

@@ -1,0 +1,38 @@
+
+{% extends 'base_tamplate.html' %}
+{% block main_content %}
+{% load static %}
+
+<img src="{% static 'dist/img/d00.jpg' %}" height="80px" width="1520px">
+
+<div class="">
+  <div class="card card-primary card-tabs">
+    <div class="card-header p-0 pt-1">
+      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="/about_page" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact_us" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/account_view" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Account</a>
+        </li>
+      </ul>
+    </div>
+    {% comment %} <img src="{% static 'dist/img/dilla1.jpg' %}"  height="800px" width="1520px"> {% endcomment %}
+    <img src="{% static 'dist/img/image1.png' %}"  height="800px" width="1520px">
+
+  </div>
+</div>
+
+{% endblock main_content %}

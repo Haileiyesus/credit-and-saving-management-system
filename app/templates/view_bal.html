@@ -1,0 +1,31 @@
+{% extends 'base_customer.html' %}
+{% block main_content %}
+{% load static %}
+<section class="content-header">
+    <h1>Finance Info</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>!0% Balance</th>
+                <th>Willing</th>
+                <th>Total</th>
+                <th>created at</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in custs %}
+            <tr>
+                <td>{{ res.0 }}</td>
+                <td>{{ res.1}}</td>
+                <td>{{ res.2 }}</td>
+                <td>{{ res.3 }}</td>
+                <td>{{ res.4 }}</td>  
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock main_content %}

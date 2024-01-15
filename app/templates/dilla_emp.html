@@ -1,0 +1,40 @@
+{% extends 'base_finance.html' %}
+{% block page_title %}
+Dilla Employee
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+
+
+
+
+{{ dilla_data }}
+
+
+
+<table border='1'>
+  <tr>
+    <th>ID</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Salary</th>
+  </tr>
+ {% for x in dilla_data %}
+    <tr>
+      <td>{{ x.id }}</td>
+      <td>{{ x.firstname }}</td>
+      <td>{{ x.lastname }}</td>
+      <td>{{ x.email }}</td>
+      <td>{{ x.Department }}</td>
+      <td>{{ x.Salary }}</td>
+     <td><a href="update/{{x.id}}">Update</a>
+    </tr>
+  {% endfor %}
+</table>
+
+</section>
+{% endblock main_content %} 

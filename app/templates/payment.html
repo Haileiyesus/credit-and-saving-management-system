@@ -1,0 +1,59 @@
+{% extends 'base_customer.html' %}
+{% block page_title %}
+Payment
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+<form method="POST" action="{% url 'payment_save' %}">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="card-body">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+<div id="account-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <div class="payment status">
+                    <input type="hidden" name="id" value="{{customer_profile.customer_id}}">
+                    {%for loan_r in loan_request %}
+                    {% if loan_r.customer_id.customer_id == customer_profile.customer_id %}
+                    <h2>Your Loan amount is :{{loan_r.loan_amount}}</h2>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="submit-area">
+                    <input type="number" placeholder="Enter the amount" id="payment" name="payment"><br>
+                    <button type="submit" id="payment-btn" class="btn btn-success">Submit</button>
+                
+                    
+                </div>
+            {% comment %} </div>
+            <a href="{% url 'cust_home' customer_id=customer_id %}">Back</a> {% endcomment %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock main_content %}
+

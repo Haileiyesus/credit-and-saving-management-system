@@ -1,0 +1,24 @@
+{% extends 'base_customer.html' %}
+{% block page_title %}
+Check Balance
+{% endblock page_title %}
+{% block main_content %}
+
+{% load static %}
+<section class="content-header">
+   <div class="col-lg-4 mb-3">
+              <div class="balance status">
+                  <h5>Balance</h5>
+                  <h2>ETB <span id="current-balance">{{customer_profile.balance}}</span></h2>
+                  <h5>Willing Balance</h5>
+                  <h2>ETB <span id="current-balance">{{customer_profile.willing_total}}</span></h2>
+                  <h5>10 % Balance</h5>
+                  <h2>ETB <span id="current-balance">{{total_10}}</span></h2>
+              </div>
+              <a href="{% url 'view_bal' customer_profile.user %}"><button>View</button></a>
+           </div>
+      
+</section>
+{% endblock main_content %}
+
+       

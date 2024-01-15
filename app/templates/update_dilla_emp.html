@@ -1,0 +1,17 @@
+{% extends 'base_finance.html'%}
+
+{%block main_content%}
+{% load static %}
+<section class="content-header">
+<h1>Update Salary</h1>
+
+<form action="update_record/{{ dilla_data.id }}" method="post">
+{% csrf_token %}
+Salary:<br>
+<input name="salary" value="{{ dilla_data.Salary}}">
+<br><br>
+
+<input type="submit" value="Update">
+</form>
+</section>
+{%endblock main_content%}
